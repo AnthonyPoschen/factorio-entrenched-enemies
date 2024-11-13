@@ -16,10 +16,17 @@ script.on_event(defines.events.on_chunk_generated, function(event)
 	end
 end)
 
+---@param entity LuaEntity lua entity to try and respawn at higher quality
 function qualitySpawnEntity(entity)
 	if entity.quality.next == nil then
 		return
 	end
+	-- calculate bonus quality based on distance from spawn. so as you get further away
+	-- the enemies slowly all become higher quality
+	local chunkDistance = math.max(entity.position.x, entity.position.y) / 32
+	local cfg_quality_per_chunk = settings.startup["entrenched-enemies-quality-upgrade-chance-per-chunk"].value
+	local AdditionalQuality = chunkDistance * cfg_quality_per_chunk
+
 	local Quality = entity.quality
 
 	local surface = entity.surface.name
@@ -28,11 +35,16 @@ function qualitySpawnEntity(entity)
 
 	while Quality.next ~= nil do
 		roll = math.random()
-		if roll <= math.min(targetRoll, 1) then
+		if roll <= math.min(targetRoll + AdditionalQuality, 1) then
 			Quality = Quality.next
 		else
 			break
 		end
+		-- remove all additionalQuality that would be required for 100% roll
+		-- thus over distance we help guarantee all spawns will be a certain tier
+		-- while also showing slow progression to always being the next tier until
+		-- all additional quality chance is removed
+		AdditionalQuality = math.max(0, AdditionalQuality - (1 - targetRoll))
 	end
 
 	if Quality.level == 0 then

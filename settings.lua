@@ -35,4 +35,13 @@ data:extend({
 		maximum_value = 10,
 		order = "ad",
 	},
+	{
+		type = "double-setting",
+		name = "entrenched-enemies-quality-upgrade-chance-per-chunk",
+		setting_type = "startup",
+		default_value = 0.01,
+		minimum_value = 0.0,
+		maximum_value = 0.5,
+		order = "ae",
+	},
 })
