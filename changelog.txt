@@ -10,3 +10,8 @@ Date: 13.11.2024
     - Worms / unit spawners now have scalable max HP, default is 3x normal ( configurable )
     - Worms / unit spawners now have scalable hp regen, default is 3x ( configurable )
     - Unit spawner's spawn rate for new enemies is now scalable, this is noticable when you approach a base and the enemies agro onto you how long it takes for new enemies to spawn at the base replacing the ones chasing you, default 2x speed ( Configurable )
+---------------------------------------------------------------------------------------------------
+Version: 1.0.1
+Date: 13.11.2024
+  Features:
+    - New additional quality chance per chunk from surface origin default is 1% per chunk ( configurable ) this means with default settings every 80 chunks is a guaranteed tier up for all enemies ( only 80 and not 100 due to global default tier up chance of 20% )
