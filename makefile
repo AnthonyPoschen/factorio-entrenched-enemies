@@ -8,6 +8,7 @@ endif
 .PHONY: build copy
 
 build:
+	@rm entrenched-enemies_* || true
 	@rm -r build || true
 	@mkdir -p build && mkdir -p ../$(FILENAME) && cp -r ./ ../$(FILENAME)/ && rm -rf ../$(FILENAME)/.git ../$(FILENAME)/makefile ../$(FILENAME)/build && mv ../$(FILENAME) ./build/$(FILENAME)
 	@cd build && zip -r ../$(FILENAME).zip ./ && cd ../ && rm -rf build

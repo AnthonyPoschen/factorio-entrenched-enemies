@@ -1,4 +1,13 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.0
+Date: 21.12.2024
+  Features:
+    - New startup setting for minimum base quality to be greater than "normal" for added optional difficulty
+    - When changing configuration that effects quality outcome of bases, all bases / worms will be regenerated.
+  Info:
+    - it is possible to now disable this mod and undo its changes via configuring the quality chance / distance values to "0" and ensuring minimum base quality is "normal"
+    - if you want bases to be a static difficulty change chance / distanve values to "0" and modify the new minimum quality tier
+---------------------------------------------------------------------------------------------------
 Version: 1.1.1
 Date: 27.11.2024
   Changes:

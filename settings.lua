@@ -1,3 +1,10 @@
+local QUALITY = {
+	NORMAL = "normal",
+	UNCOMMON = "uncommon",
+	RARE = "rare",
+	EPIC = "epic",
+	LEGENDARY = "legendary",
+}
 data:extend({
 	{
 		type = "double-setting",
@@ -43,6 +50,20 @@ data:extend({
 		minimum_value = 1,
 		maximum_value = 10,
 		order = "ae",
+	},
+	{
+		type = "string-setting",
+		name = "entrenched-enemies-base-qual-minimum",
+		setting_type = "startup",
+		default_value = QUALITY.NORMAL,
+		allowed_values = {
+			QUALITY.NORMAL,
+			QUALITY.UNCOMMON,
+			QUALITY.RARE,
+			QUALITY.EPIC,
+			QUALITY.LEGENDARY,
+		},
+		order = "af",
 	},
 	{
 		type = "double-setting",
