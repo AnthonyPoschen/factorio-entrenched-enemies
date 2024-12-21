@@ -1,6 +1,7 @@
 local cfg_quality_per_chunk = settings.startup["entrenched-enemies-quality-upgrade-chance-per-chunk"].value
 local cfg_targetRoll = settings.startup["entrenched-enemies-base-upgrade-percent"].value
 local cfg_qualMinimum = prototypes.quality[settings.startup["entrenched-enemies-base-qual-minimum"].value]
+local cfg_regenerate = settings.startup["entrenched-enemies-base-regenerate"].value
 
 script.on_init(function()
 	script.on_nth_tick(1, function(event)
@@ -27,6 +28,9 @@ script.on_load(function()
 		end)
 		return
 	end
+	if not cfg_regenerate then
+		return
+	end
 	if roll ~= cfg_targetRoll or qual_chunk ~= cfg_quality_per_chunk or qual_min.level ~= cfg_qualMinimum.level then
 		-- update what we store so this doesn't happen every loop if you don't change these values
 		script.on_nth_tick(1, function(event)
@@ -35,6 +39,7 @@ script.on_load(function()
 			storage.targetRoll = cfg_targetRoll
 			storage.qual_chunk = cfg_quality_per_chunk
 			storage.qual_min = cfg_qualMinimum
+			storage.initial_save = true
 		end)
 	end
 end)

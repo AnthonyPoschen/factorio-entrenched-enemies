@@ -66,6 +66,13 @@ data:extend({
 		order = "af",
 	},
 	{
+		type = "bool-setting",
+		name = "entrenched-enemies-base-regenerate",
+		setting_type = "startup",
+		default_value = false,
+		order = "ag",
+	},
+	{
 		type = "double-setting",
 		name = "entrenched-enemies-demolisher-speed-multiplier",
 		setting_type = "startup",

@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.2
+Date: 21.12.2024
+  Features:
+    - boolean config added that by default will not enable regeneration of existing bases. To better support existing saves
+---------------------------------------------------------------------------------------------------
 Version: 1.2.1
 Date: 21.12.2024
   Bugfixes:
