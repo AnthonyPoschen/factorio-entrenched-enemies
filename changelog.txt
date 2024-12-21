@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.1
+Date: 21.12.2024
+  Bugfixes:
+    - first load of 1.2.x causes base regeneration for existing saves. All loads that land on 1.2.x for the first time won't regenerate anymore on first load
+---------------------------------------------------------------------------------------------------
 Version: 1.2.0
 Date: 21.12.2024
   Features:

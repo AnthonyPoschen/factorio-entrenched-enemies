@@ -10,12 +10,23 @@ script.on_init(function()
 	storage.targetRoll = cfg_targetRoll
 	storage.qual_chunk = cfg_quality_per_chunk
 	storage.qual_min = cfg_qualMinimum
+	storage.initial_save = true
 end)
 
 script.on_load(function()
 	local roll = storage.targetRoll
 	local qual_chunk = storage.qual_chunk
 	local qual_min = storage.qual_min
+	if not storage.initial_save then
+		script.on_nth_tick(1, function(event)
+			script.on_nth_tick(1, nil)
+			storage.targetRoll = cfg_targetRoll
+			storage.qual_chunk = cfg_quality_per_chunk
+			storage.qual_min = cfg_qualMinimum
+			storage.initial_save = true
+		end)
+		return
+	end
 	if roll ~= cfg_targetRoll or qual_chunk ~= cfg_quality_per_chunk or qual_min.level ~= cfg_qualMinimum.level then
 		-- update what we store so this doesn't happen every loop if you don't change these values
 		script.on_nth_tick(1, function(event)
