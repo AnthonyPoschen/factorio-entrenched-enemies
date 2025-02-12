@@ -2,6 +2,7 @@ local cfg_quality_per_chunk = settings.startup["entrenched-enemies-quality-upgra
 local cfg_targetRoll = settings.startup["entrenched-enemies-base-upgrade-percent"].value
 local cfg_qualMinimum = prototypes.quality[settings.startup["entrenched-enemies-base-qual-minimum"].value]
 local cfg_regenerate = settings.startup["entrenched-enemies-base-regenerate"].value
+local cfg_normal_units_only = settings.startup["entrenched-enemies-unit-spawn-no-qual"].value
 
 script.on_init(function()
 	script.on_nth_tick(1, function(event)
@@ -91,6 +92,30 @@ script.on_event(defines.events.on_chunk_generated, function(event)
 	end
 end)
 
+script.on_event(defines.events.on_entity_spawned, function(event)
+	if cfg_normal_units_only == false then
+		return
+	end
+	---@type LuaEntity? lua entity to try and respawn at higher quality
+	local entity = event.entity
+	if entity == nil then
+		return
+	end
+	if entity.quality.level == 0 then
+		return
+	end
+	if event.spawner.force.name == "player" then
+		return
+	end
+	local surface = entity.surface
+	local newEntity = { name = entity.name, position = entity.position, force = entity.force }
+	entity.destroy()
+	game.surfaces[surface.name].create_entity({
+		name = newEntity.name,
+		position = newEntity.position,
+		force = "enemy",
+	})
+end)
 ---@param entity LuaEntity? lua entity to try and respawn at higher quality
 ---@param StartingQual LuaQualityPrototype|nil default quality to use
 function qualitySpawnEntity(entity, StartingQual)

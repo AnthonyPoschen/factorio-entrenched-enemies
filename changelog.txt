@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.3.0
+Date: 13.02.2025
+  Features:
+    - boolean config added to force spawners to always create "normal" units. for better compat with enemy unit mods
+---------------------------------------------------------------------------------------------------
 Version: 1.2.2
 Date: 21.12.2024
   Features:

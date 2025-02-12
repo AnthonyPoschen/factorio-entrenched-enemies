@@ -73,6 +73,13 @@ data:extend({
 		order = "ag",
 	},
 	{
+		type = "bool-setting",
+		name = "entrenched-enemies-unit-spawn-no-qual",
+		setting_type = "startup",
+		default_value = false,
+		order = "ah",
+	},
+	{
 		type = "double-setting",
 		name = "entrenched-enemies-demolisher-speed-multiplier",
 		setting_type = "startup",
