@@ -56,7 +56,7 @@ function regenerate()
 		for _, entity in pairs(surface.find_entities_filtered({ force = "enemy" })) do
 			if entity.type == "unit-spawner" or entity.type == "turret" then -- This checks for biter nests and worms
 				local newEntityprop = { name = entity.name, position = entity.position, force = entity.force }
-				entity.destroy()
+				entity.destroy({ raise_destroy = true })
 				-- reset to minimum quality and then reroll the math
 				local newEntity = surface.create_entity({
 					name = newEntityprop.name,
@@ -110,7 +110,7 @@ script.on_event(defines.events.on_entity_spawned, function(event)
 	end
 	local surface = entity.surface
 	local newEntity = { name = entity.name, position = entity.position, force = entity.force }
-	entity.destroy()
+	entity.destroy({ raise_destroy = true })
 	game.surfaces[surface.name].create_entity({
 		name = newEntity.name,
 		position = newEntity.position,
@@ -157,7 +157,7 @@ function qualitySpawnEntity(entity, StartingQual)
 	end
 
 	local newEntity = { name = entity.name, position = entity.position, force = entity.force }
-	entity.destroy()
+	entity.destroy({ raise_destroy = true })
 	game.surfaces[surface].create_entity({
 		name = newEntity.name,
 		position = newEntity.position,
