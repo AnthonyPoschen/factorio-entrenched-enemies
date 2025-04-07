@@ -163,3 +163,23 @@ function qualitySpawnEntity(entity, StartingQual)
 		quality = Quality,
 	})
 end
+
+script.on_event(defines.events.script_raised_built, function(event)
+	-- don't do anything if the entity is not made by us
+	if event.mod_name and event.mod_name == "entrenched-enemies" then
+		return
+	end
+
+	local entity = event.entity
+	-- don't do anything if the entity is nil or invalid
+	if not entity or not entity.valid then
+		return
+	end
+	if entity.type == "unit-spawner" or entity.type == "turret" then -- This checks for biter nests and worms
+		local qual = entity.quality
+		if qual.level < cfg_qualMinimum.level then
+			qual = cfg_qualMinimum
+		end
+		qualitySpawnEntity(entity, qual)
+	end
+end)
