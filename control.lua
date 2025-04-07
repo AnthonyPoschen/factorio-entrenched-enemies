@@ -62,6 +62,7 @@ function regenerate()
 					name = newEntityprop.name,
 					position = newEntityprop.position,
 					force = newEntityprop.force,
+					raise_built = true,
 				})
 				qualitySpawnEntity(newEntity, quality)
 			end
@@ -114,6 +115,7 @@ script.on_event(defines.events.on_entity_spawned, function(event)
 		name = newEntity.name,
 		position = newEntity.position,
 		force = "enemy",
+		raise_built = true,
 	})
 end)
 ---@param entity LuaEntity? lua entity to try and respawn at higher quality
@@ -161,6 +163,7 @@ function qualitySpawnEntity(entity, StartingQual)
 		position = newEntity.position,
 		force = newEntity.force,
 		quality = Quality,
+		raise_built = true,
 	})
 end
 
