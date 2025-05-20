@@ -128,7 +128,7 @@ function qualitySpawnEntity(entity, StartingQual)
 	end
 	-- calculate bonus quality based on distance from spawn. so as you get further away
 	-- the enemies slowly all become higher quality
-	local chunkDistance = math.max(entity.position.x, entity.position.y) / 32
+	local chunkDistance = math.max(math.abs(entity.position.x), math.abs(entity.position.y)) / 32
 	-- local cfg_quality_per_chunk = settings.startup["entrenched-enemies-quality-upgrade-chance-per-chunk"].value
 	local AdditionalQuality = chunkDistance * cfg_quality_per_chunk
 
