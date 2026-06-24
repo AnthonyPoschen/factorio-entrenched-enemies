@@ -1,24 +1,32 @@
-FILENAME := $(shell jq -r '.name +"_"+ .version' ./info.json)
+MOD_NAME := $(shell jq -r '.name' ./info.json)
+VERSION := $(shell jq -r '.version' ./info.json)
+FILENAME := $(MOD_NAME)_$(VERSION)
+UNAME_S := $(shell uname -s 2>/dev/null || echo Unknown)
+
 ifeq ($(OS), Windows_NT)
-	APPDATA := $(shell /mnt/c/Windows/System32/cmd.exe /C "echo %APPDATA%" | sed -e "s/\\\/\//g" -e "s/^./\L&/" -e "s/://g" -e "s/^/\/mnt\//")
-	LOCATION := "$(APPDATA)/Factorio/mods/$(FILENAME)"
+	FACTORIO_MODS_DIR ?= $(shell cygpath -u "$$APPDATA" 2>/dev/null || printf '%s\n' "$$APPDATA")/Factorio/mods
+else ifeq ($(UNAME_S), Darwin)
+	FACTORIO_MODS_DIR ?= $(HOME)/Library/Application Support/factorio/mods
 else
-	LOCATION = ${HOME}/Library/Application\ Support/factorio/mods/$(FILENAME)
+	FACTORIO_MODS_DIR ?= $(HOME)/.factorio/mods
 endif
-.PHONY: build copy
+
+LOCATION := $(FACTORIO_MODS_DIR)/$(FILENAME)
+
+.PHONY: build copy print-location run
 
 build:
-	@rm entrenched-enemies_* || true
+	@rm -f -- "$(MOD_NAME)"_*.zip
 	@rm -r build || true
 	@mkdir -p build && mkdir -p ../$(FILENAME) && cp -r ./ ../$(FILENAME)/ && rm -rf ../$(FILENAME)/.git ../$(FILENAME)/makefile ../$(FILENAME)/build && mv ../$(FILENAME) ./build/$(FILENAME)
 	@cd build && zip -r ../$(FILENAME).zip ./ && cd ../ && rm -rf build
 
 copy:
-	rm -rf $(LOCATION) && mkdir -p $(LOCATION) && cp -r ./* $(LOCATION)
+	rm -rf "$(LOCATION)" && mkdir -p "$(LOCATION)" && cp -r ./* "$(LOCATION)"
 #	cp $(FILENAME).zip "$(APPDATA)/Factorio/mods/$(FILENAME).zip"
 #	rm -rf $(FILENAME).zip
 
-run: build copy
+print-location:
+	@echo "$(LOCATION)"
 
-wsl-setup:
-	apt get jq zip make
+run: build copy
